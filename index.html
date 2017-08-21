@@ -25,15 +25,14 @@
     <br>
     <div class="error" ng-show="list.show">Nothing found!</div>
 <br>
-<br>
+
 
     <!-- found-items should be implemented as a component -->
-
+<div ng-show="list.display">
     <found-items
-        items="list.items"
-        on-remove="list.removeItem(index)"></found-items>
-
-  </div>
-
+     items="list.items"
+    on-remove="list.removeItem(index)"></found-items>
+</div>
+</div>
 </body>
 </html>

@@ -35,32 +35,37 @@ function FoundItemsDirectiveListDirectiveController() {
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
   var list = this;
-
+  var isItemNotFound=false;
 list.getItems=function(itemDesc)
   {
-    list.flag=false;
-    list.show=false;
+   list.display=false;
   var description=isEmpty(itemDesc)
+
+
 //  console.log("length",itemDesc.length );
   var promise = MenuSearchService.getMatchedMenuItems();
   promise.then(function (response) {
   var foundItems = response.data;
   angular.forEach(foundItems.menu_items, function (item, idx) {
-    if (item.description.indexOf(itemDesc)!== -1  && description)
+    if (item.description.indexOf(itemDesc)!== -1 && description )
     {
-      list.flag=true;
+    list.display=true;
       items.push(item);
       list.items=items;
       console.log("matched items",list.items);
     }
 
+
   });
-if(description ||   list.flag)
+if(!list.display || !description)
 {
-  list.show=false;
-}
-else if(!description || !list.flag ){
   list.show=true;
+  list.display=false;
+}
+else{
+  list.show=false;
+  list.display=true;
+
 }
 
 })
